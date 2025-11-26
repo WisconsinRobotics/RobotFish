@@ -29,7 +29,7 @@ class Assistant:
         
         # Configuration - hardcoded for simplicity
         self.ollama_host = "http://localhost:11434"
-        self.ollama_model = "gemma3:270m-it-fp16"  # Lightweight model perfect for Pi 4
+        self.ollama_model = "gemma3:1b"  # Lightweight model perfect for Pi 4
         self.whisper_model = "tiny"   # Using tiny model for speed
         
         # TTS Configuration
