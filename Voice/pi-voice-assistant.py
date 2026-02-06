@@ -11,8 +11,9 @@ import soundfile as sf
 import tempfile
 import os
 import re
-from piper import PiperVoice
+from piper.voice import PiperVoice
 import whisper
+from pathlib import Path
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -51,7 +52,10 @@ class Assistant:
         
         # Initialize KittenTTS
         print("Loading KittenTTS model (first run downloads ~25MB)...")
-        self.tts = PiperVoice.load("/home/user/Desktop/Voice/FishyAI","en_GB-northern_english_male-medium.onnx")
+        voice_dir = Path("/home/user/Desktop/repos/RobotFish/Voice")
+        model_path = voice_dir / "en_GB-northern_english_male-medium.onnx"
+        config_path = voice_dir / "en_GB-northern_english_male-medium.onnx.json"
+        self.tts = PiperVoice.load(str(model_path), str(config_path))
         
         # Initialize Ollama client
         self.ollama_client = ollama.Client(host=self.ollama_host)
@@ -264,7 +268,7 @@ class Assistant:
                     text_to_speak = cleaned_text
                 
                 # Generate audio with KittenTTS (in memory)
-                audio_data = self.tts.generate(text_to_speak, voice=self.tts_voice)
+                audio_data = self.tts.synthesize(text_to_speak, voice=self.tts_voice)
                 
                 print("🔊 Streaming speech...")
                 
