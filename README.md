@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+=======
+# Wisconsin Robotics Talking Fish
+
+## Folder structure
+
+- Camera: Facial tracking
+- MotorControl: Servo controls
+- Voice: AI voice assistant
+
+
+>>>>>>> Sem2-catchup
 # 🥧🎙️ OnDevice Pi Voice Assistant
 
 A lightweight, privacy-focused voice assistant that runs entirely offline on your Raspberry Pi 4. Built with OpenAI's Whisper for speech recognition, Ollama for intelligent responses, and KittenTTS for natural-sounding speech synthesis - everything processed locally on your device.
