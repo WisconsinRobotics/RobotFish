@@ -11,7 +11,7 @@ import soundfile as sf
 import tempfile
 import os
 import re
-from kittentts import KittenTTS
+from piper import PiperVoice
 import whisper
 
 # Configure logging
@@ -51,8 +51,7 @@ class Assistant:
         
         # Initialize KittenTTS
         print("Loading KittenTTS model (first run downloads ~25MB)...")
-        self.tts = KittenTTS("KittenML/kitten-tts-nano-0.1")
-        print("KittenTTS loaded successfully!")
+        self.tts = PiperVoice.load("/home/user/Desktop/Voice/FishyAI","en_GB-northern_english_male-medium.onnx")
         
         # Initialize Ollama client
         self.ollama_client = ollama.Client(host=self.ollama_host)
