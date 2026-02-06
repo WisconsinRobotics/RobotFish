@@ -5,11 +5,8 @@ import numpy as np
 import pyaudio
 import logging
 import threading
-import queue
 import ollama
 import soundfile as sf
-import tempfile
-import os
 import re
 from piper.voice import PiperVoice
 import whisper
@@ -51,7 +48,7 @@ class Assistant:
             sys.exit(1)
         
         # Initialize KittenTTS
-        print("Loading KittenTTS model (first run downloads ~25MB)...")
+        print("Loading PiperVoice...")
         voice_dir = Path("/home/user/Desktop/repos/RobotFish/Voice")
         model_path = voice_dir / "en_GB-northern_english_male-medium.onnx"
         config_path = voice_dir / "en_GB-northern_english_male-medium.onnx.json"
@@ -267,8 +264,8 @@ class Assistant:
                 else:
                     text_to_speak = cleaned_text
                 
-                # Generate audio with KittenTTS (in memory)
-                audio_data = self.tts.synthesize(text_to_speak, voice=self.tts_voice)
+                # Generate audio with PiperVoice (in memory)
+                audio_data = self.tts.synthesize(text_to_speak)
                 
                 print("🔊 Streaming speech...")
                 
@@ -291,8 +288,8 @@ class Assistant:
         """Stream audio data directly to speakers without saving to file"""
         try:
             # Convert to 16-bit integers for playback
-            if audio_data.dtype != np.int16:
-                audio_data = (audio_data * 32767).astype(np.int16)
+            # if audio_data.dtype != np.int16:
+            #     audio_data = (audio_data * 32767).astype(np.int16)
             
             # Create pyaudio stream for output
             stream = self.audio.open(
