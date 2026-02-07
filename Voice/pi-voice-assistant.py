@@ -23,14 +23,13 @@ INPUT_CHUNK = 1024
 
 class Assistant:
     def __init__(self):
-        logging.info("Initializing OnDevice Pi Voice Assistant...")
+        logging.info("Initializing voice assistant...")
         
-        # Configuration - hardcoded for simplicity
+        # Configuration
+        # TODO: How much of this is used?
         self.ollama_host = "http://localhost:11434"
         self.ollama_model = "gemma3:1b"  # Lightweight model perfect for Pi 4
         self.whisper_model = "tiny"   # Using tiny model for speed
-        
-        # TTS Configuration
         self.tts_voice = "expr-voice-2-f"  # Available: expr-voice-2-m, expr-voice-2-f, etc.
         self.tts_speed = 1.0
         
@@ -47,7 +46,7 @@ class Assistant:
             print(f"Error loading Whisper model: {e}")
             sys.exit(1)
         
-        # Initialize KittenTTS
+        # Initialize PiperVoice
         print("Loading PiperVoice...")
         voice_dir = Path("/home/user/Desktop/repos/RobotFish/Voice")
         model_path = voice_dir / "en_GB-northern_english_male-medium.onnx"
@@ -86,7 +85,7 @@ class Assistant:
 
     def record_audio(self):
         """Record audio until Enter is pressed again"""
-        print("\n🎤 Recording... Press ENTER to stop (speak for at least 1 second)")
+        print("\nRecording... Press ENTER to stop (speak for at least 1 second)")
         
         stream = self.audio.open(format=INPUT_FORMAT,
                                channels=INPUT_CHANNELS,
@@ -128,7 +127,7 @@ class Assistant:
         stream.close()
         
         elapsed_time = time.time() - start_time
-        print(f"\n🛑 Recording stopped ({elapsed_time:.1f}s recorded)")
+        print(f"\nRecording stopped ({elapsed_time:.1f}s recorded)")
         
         if not frames:
             return None
@@ -138,7 +137,7 @@ class Assistant:
         
         # Warn if recording is very short
         if elapsed_time < 0.5:
-            print("⚠️  Very short recording. Try speaking for longer next time.")
+            print("Very short recording! Try speaking for longer next time.")
         
         return audio_data
 
@@ -147,7 +146,7 @@ class Assistant:
         if audio_data is None or len(audio_data) == 0:
             return ""
             
-        print("🗣️ Converting speech to text with Whisper...")
+        print("Converting speech to text with Whisper...")
         
         try:
             # Use Whisper to transcribe
@@ -176,7 +175,7 @@ class Assistant:
         if not prompt:
             return ""
             
-        print("🤖 Thinking...")
+        print("Thinking...")
         
         # Add system prompt for voice assistant behavior
         system_prompt = {
@@ -237,7 +236,7 @@ class Assistant:
         return text
 
     def text_to_speech(self, text):
-        """Convert text to speech using KittenTTS with streaming playback"""
+        """Convert text to speech with streaming playback"""
         if not text or self.is_speaking:
             return
             
@@ -250,10 +249,11 @@ class Assistant:
                 cleaned_text = self._clean_text_for_tts(text)
                 
                 if not cleaned_text.strip():
-                    print("⚠️  No speakable text after cleaning")
+                    print("No speakable text after cleaning")
                     return
                 
                 # Truncate text if too long for KittenTTS
+                # TODO: Not using KittenTTS anymore! What max length do we want?
                 if len(cleaned_text) > 200:
                     text_to_speak = cleaned_text[:200].rsplit('.', 1)[0]
                     if text_to_speak:
@@ -294,7 +294,7 @@ class Assistant:
             # Create pyaudio stream for output
             stream = self.audio.open(
                 format=pyaudio.paInt16,
-                channels=1,  # KittenTTS is mono
+                channels=1,  # TODO: This was set for KittenTTS. What about PiperVoice?
                 rate=int(sample_rate),
                 output=True,
                 frames_per_buffer=1024
@@ -316,7 +316,7 @@ class Assistant:
 
     def _play_audio_file(self, file_path):
         """Legacy method - kept for compatibility but not used in streaming mode"""
-        print("⚠️  Using legacy file playback - consider using streaming instead")
+        print("Using legacy file playback - consider using streaming instead")
         try:
             # Read audio file
             data, sample_rate = sf.read(file_path)
