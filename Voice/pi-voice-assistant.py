@@ -34,8 +34,12 @@ class Assistant:
         self.tts_speed = 1.0
         
         # Initialize audio
+        print("Initializing audio input...")
         self.audio = pyaudio.PyAudio()
+        pulse_idx = self._get_pulse_index(self.audio)
+        print("Audio input initialized successfully. Testing audio...")
         self._test_audio()
+        print("Audio test passed.")
         
         # Load Whisper model
         print(f"Loading Whisper {self.whisper_model} model...")
@@ -69,6 +73,14 @@ class Assistant:
         print("  Type 'clear' to clear conversation history")
         print("  Type 'voice' to change TTS voice")
 
+    def _get_pulse_index(self, p):
+        for i in range(p.get_device_count()):
+            dev = p.get_device_info_by_index(i)
+            if 'pulse' in dev['name'].lower():
+                return i
+        return None # Or return p.get_default_input_device_info()['index']
+
+
     def _test_audio(self):
         """Test if audio input is available"""
         try:
@@ -76,7 +88,9 @@ class Assistant:
                                    channels=INPUT_CHANNELS,
                                    rate=INPUT_RATE,
                                    input=True,
-                                   frames_per_buffer=INPUT_CHUNK)
+                                   frames_per_buffer=INPUT_CHUNK,
+                                   input_device_index=self._get_pulse_index(self.audio)
+                                   )
             stream.close()
         except Exception as e:
             logging.error(f"Audio initialization failed: {str(e)}")
