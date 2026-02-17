@@ -36,7 +36,6 @@ class Assistant:
         # Initialize audio
         print("Initializing audio input...")
         self.audio = pyaudio.PyAudio()
-        pulse_idx = self._get_pulse_index(self.audio)
         print("Audio input initialized successfully. Testing audio...")
         self._test_audio()
         print("Audio test passed.")
@@ -300,25 +299,29 @@ class Assistant:
 
     def _stream_audio_to_speakers(self, audio_data, sample_rate):
         """Stream audio data directly to speakers without saving to file"""
-        try:
-            # Convert to 16-bit integers for playback
-            # if audio_data.dtype != np.int16:
-            #     audio_data = (audio_data * 32767).astype(np.int16)
-            
+        try:            
             # Create pyaudio stream for output
             stream = self.audio.open(
                 format=pyaudio.paInt16,
                 channels=1,  # TODO: This was set for KittenTTS. What about PiperVoice?
                 rate=int(sample_rate),
                 output=True,
-                frames_per_buffer=1024
+                frames_per_buffer=1024,
+                output_device_index=self._get_pulse_index(self.audio)
             )
+
+            for audio_chunk in audio_data:
+                print(f"Streaming audio chunk of size {len(audio_chunk.audio_float_array)} samples")
+                audio_float_array = audio_chunk.audio_float_array
+                # Convert to 16-bit integers for playback
+                if audio_float_array.dtype != np.int16:
+                    audio_float_array = (audio_float_array * 32767).astype(np.int16)
             
-            # Stream audio data in chunks (NO FILE I/O)
-            chunk_size = 1024
-            for i in range(0, len(audio_data), chunk_size):
-                chunk = audio_data[i:i + chunk_size]
-                stream.write(chunk.tobytes())
+                # Stream audio data in chunks (NO FILE I/O)
+                chunk_size = 1024
+                for i in range(0, len(audio_float_array), chunk_size):
+                    chunk = audio_float_array[i:i + chunk_size]
+                    stream.write(chunk.tobytes())
             
             # Clean up stream
             stream.stop_stream()
