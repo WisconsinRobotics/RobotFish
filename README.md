@@ -28,19 +28,19 @@ This project's dependencies are managed by uv. The pyproject.toml file contains 
 
 ### File Organization
 
-Voice/
-├── voice-assistant.py          (Entry point)
-├── voice_assistant/
-│   ├── __init__.py                (Package info, currently unused)
-│   ├── config.py                  (For constants & tuning settings)
-│   ├── audio_io.py                (Microphone & speaker I/O)
-│   ├── health.py                  (Startup device checks - TODO: Maybe rename?)
-│   ├── stt_whisper.py             (Speech-to-text)
-│   ├── llm_ollama.py              (LLM response generation)
-│   ├── tts_piper.py               (Text-to-speech with streaming)
-│   └── app.py                     (Main loop)
-├── en_GB-northern_english_male-medium.onnx       (TTS voice model)
-└── en_GB-northern_english_male-medium.onnx.json  (TTS voice model)
+Voice/  
+├── voice-assistant.py          (Entry point)  
+├── voice_assistant/  
+│   ├── __init__.py                (Package   info, currently unused)
+│   ├── config.py                  (For constants & tuning settings)  
+│   ├── audio_io.py                (Microphone & speaker I/O)  
+│   ├── health.py                  (Startup device checks - TODO: Maybe rename?)  
+│   ├── stt_whisper.py             (Speech-to-text)  
+│   ├── llm_ollama.py              (LLM response generation)  
+│   ├── tts_piper.py               (Text-to-speech with streaming)  
+│   └── app.py                     (Main loop)  
+├── en_GB-northern_english_male-medium.onnx       (TTS voice model)  
+└── en_GB-northern_english_male-medium.onnx.json  (TTS voice model)  
 
 ### To Do
 
