@@ -20,9 +20,17 @@ This project's dependencies are managed by uv. The pyproject.toml file contains 
 
 ## AI Voice Assistant
 
-Run: `uv run Voice/pi-voice-assistant.py`
+1. Connect the Bluetooth speaker (with microphone) to the Pi.
 
-[PiperTTS source code](https://github.com/OHF-Voice/piper1-gpl)
+2. Run: `uv run Voice/pi-voice-assistant.py`
+
+    [PiperTTS source code](https://github.com/OHF-Voice/piper1-gpl)
+
+### To Do
+
+- Split pi-voice-assistant.py into multiple files (text to speech, LLM generation, speech to text)
+- Add activation trigger (Speak "Hey Finley" or press a button)
+- Decrease Time To First Token (Start speech to text before LLM generation is completed, switch to a faster (smaller) LLM, test the AI HAT we ordered)
 
 ## Facial Tracking
 
