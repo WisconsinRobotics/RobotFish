@@ -31,7 +31,7 @@ This project's dependencies are managed by uv. The pyproject.toml file contains 
 Voice/  
 ├── voice-assistant.py          (Entry point)  
 ├── voice_assistant/  
-│   ├── __init__.py                (Package   info, currently unused)
+│   ├── \_\_init\_\_.py                (Package   info, currently unused)
 │   ├── config.py                  (For constants & tuning settings)  
 │   ├── audio_io.py                (Microphone & speaker I/O)  
 │   ├── health.py                  (Startup device checks - TODO: Maybe rename?)  
