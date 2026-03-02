@@ -3,6 +3,8 @@ Health Checks
 ==============
 Startup verification for device availability and model paths.
 Raises descriptive exceptions early so failures are clear.
+
+TODO: This should replace SpeakerTests/*, so delete that once this is complete.
 """
 
 import logging
