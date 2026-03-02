@@ -47,6 +47,8 @@ Voice/
 - Split pi-voice-assistant.py into multiple files (text to speech, LLM generation, speech to text)
 - Add activation trigger (Speak "Hey Finley" or press a button)
 - Decrease Time To First Token (Start speech to text before LLM generation is completed, switch to a faster (smaller) LLM, test the AI HAT we ordered)
+- Give Finley a personality!!!! 🐟🐟🐟
+    - Allow mechanical responses? (e.g., Finley says "--shake_head--" and robot shakes its head.)
 
 ## Facial Tracking
 
