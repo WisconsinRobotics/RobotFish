@@ -18,7 +18,7 @@ This project's dependencies are managed by uv. The pyproject.toml file contains 
 - `uv sync`: Updates your environment to match pyproject.toml.
 - [Install uv](https://docs.astral.sh/uv/getting-started/installation/) for development on personal computer
 
-## AI Voice Assistant
+## AI Voice Response
 
 1. Connect the Bluetooth speaker (with microphone) to the Pi.
 
@@ -50,7 +50,7 @@ Voice/
 - Give Finley a personality!!!! 🐟🐟🐟
     - Allow mechanical responses? (e.g., Finley says "--shake_head--" and robot shakes its head.)
 
-## Facial Tracking
+## Camera & CV Face Tracking
 
 
 
