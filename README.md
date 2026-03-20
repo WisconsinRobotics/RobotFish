@@ -29,22 +29,20 @@ This project's dependencies are managed by uv. The pyproject.toml file contains 
 ### File Organization
 
 Voice/  
-├── main.py                 *(Entry point)*  
+├── main.py
 ├── voice/  
-│   ├── \_\_init\_\_.py     *(Package   info, currently unused)*  
-│   ├── config.py           *(For constants & tuning settings)*  
+│   ├── config.py           *(For constants, settings, and Finley's prompt)*  
 │   ├── audio_io.py         *(Microphone & speaker I/O)*  
-│   ├── health.py           *(Startup device checks - TODO: Maybe rename?)*  
-│   ├── stt_whisper.py      *(Speech-to-text)*  
+│   ├── health.py           *(Startup device checks)*  
+│   ├── stt_whisper.py      *(Speech to text)*  
 │   ├── llm_ollama.py       *(LLM response generation)*  
-│   ├── tts_piper.py        *(Text-to-speech with streaming)*  
+│   ├── tts_piper.py        *(Text to speech with streaming)*  
 │   └── app.py              *(Main loop)*  
 ├── en_GB-northern_english_male-medium.onnx         *(TTS voice model)*  
 └── en_GB-northern_english_male-medium.onnx.json    *(TTS voice model)*  
 
 ### To Do
 
-- Split pi-voice-assistant.py into multiple files (text to speech, LLM generation, speech to text)
 - Add activation trigger (Speak "Hey Finley" or press a button)
 - Decrease Time To First Token (Start speech to text before LLM generation is completed, switch to a faster (smaller) LLM, test the AI HAT we ordered)
 - Give Finley a personality!!!! 🐟🐟🐟
