@@ -12,7 +12,6 @@ import threading
 import numpy as np
 from piper.voice import PiperVoice
 from . import config
-from .audio_io import AudioIO, AudioIOError
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +32,7 @@ class PiperTTS:
                 str(config.PIPER_MODEL_PATH),
                 str(config.PIPER_CONFIG_PATH)
             )
-            logger.info("✓ Piper TTS models loaded")
+            logger.info("Piper TTS models loaded.")
         except Exception as e:
             msg = f"Failed to load Piper models: {e}"
             logger.error(msg)
@@ -149,7 +148,7 @@ class PiperTTS:
             stream.close()
             logger.info("✓ Speech playback complete")
             
-        except AudioIOError as e:
+        except Exception as e:
             logger.error(f"Failed to stream audio to speakers: {e}")
         except Exception as e:
             logger.error(f"Audio streaming error: {e}")

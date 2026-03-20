@@ -20,7 +20,7 @@ class WhisperSTT:
         logger.info(f"Loading Whisper {config.WHISPER_MODEL_NAME} model...")
         try:
             self.model = whisper.load_model(config.WHISPER_MODEL_NAME)
-            logger.info("✓ Whisper model loaded successfully")
+            logger.info("Whisper SST model loaded successfully.")
         except Exception as e:
             msg = f"Failed to load Whisper model: {e}"
             logger.error(msg)

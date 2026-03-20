@@ -6,16 +6,9 @@ and audio data conversion.
 
 import logging
 import pyaudio
-import numpy as np
 from . import config
 
 logger = logging.getLogger(__name__)
-
-
-class AudioIOError(Exception):
-    """Raised when audio device operations fail"""
-    pass
-
 
 class AudioIO:
     """Manages PyAudio lifecycle, microphone input, and speaker output"""
@@ -43,9 +36,6 @@ class AudioIO:
         
         Returns:
             pyaudio.Stream: Input stream ready for reading
-            
-        Raises:
-            AudioIOError: If microphone cannot be opened
         """
         try:
             stream = self.audio.open(
@@ -61,7 +51,7 @@ class AudioIO:
         except Exception as e:
             msg = f"Failed to open microphone input: {e}"
             logger.error(msg)
-            raise AudioIOError(msg) from e
+            raise Exception(msg) from e
     
     def open_output_stream(self, sample_rate=config.TTS_SAMPLE_RATE):
         """
@@ -74,7 +64,7 @@ class AudioIO:
             pyaudio.Stream: Output stream ready for writing
             
         Raises:
-            AudioIOError: If speaker cannot be opened
+            Exception: If speaker cannot be opened
         """
         try:
             stream = self.audio.open(
@@ -90,14 +80,14 @@ class AudioIO:
         except Exception as e:
             msg = f"Failed to open speaker output: {e}"
             logger.error(msg)
-            raise AudioIOError(msg) from e
+            raise Exception(msg) from e
     
     def test_input_stream(self):
         """
         Test if microphone input is available
         
         Raises:
-            AudioIOError: If microphone test fails
+            Exception: If microphone test fails
         """
         try:
             stream = self.open_input_stream()
@@ -106,14 +96,14 @@ class AudioIO:
         except Exception as e:
             msg = f"Microphone test failed: {e}"
             logger.error(msg)
-            raise AudioIOError(msg) from e
+            raise Exception(msg) from e
     
     def test_output_stream(self):
         """
         Test if speaker output is available
         
         Raises:
-            AudioIOError: If speaker test fails
+            Exception: If speaker test fails
         """
         try:
             stream = self.open_output_stream()
@@ -122,7 +112,7 @@ class AudioIO:
         except Exception as e:
             msg = f"Speaker test failed: {e}"
             logger.error(msg)
-            raise AudioIOError(msg) from e
+            raise Exception(msg) from e
     
     def shutdown(self):
         """Clean up PyAudio resources"""

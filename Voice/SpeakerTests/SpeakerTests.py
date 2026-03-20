@@ -2,6 +2,8 @@
 # Posted by Logic1
 # Retrieved 2026-02-16, License - CC BY-SA 3.0
 
+# This was just used to identify the name of the speaker. Currently unused 3/19/26.
+
 import pyaudio
 
 p = pyaudio.PyAudio()

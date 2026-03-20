@@ -22,15 +22,15 @@ This project's dependencies are managed by uv. The pyproject.toml file contains 
 
 1. Connect the Bluetooth speaker (with microphone) to the Pi.
 
-2. Run: `uv run Voice/voice-assistant.py`
+2. Run: `uv run Voice/main.py`
 
     [PiperTTS source code](https://github.com/OHF-Voice/piper1-gpl)
 
 ### File Organization
 
 Voice/  
-├── voice-assistant.py      *(Entry point)*  
-├── voice_assistant/  
+├── main.py                 *(Entry point)*  
+├── voice/  
 │   ├── \_\_init\_\_.py     *(Package   info, currently unused)*  
 │   ├── config.py           *(For constants & tuning settings)*  
 │   ├── audio_io.py         *(Microphone & speaker I/O)*  

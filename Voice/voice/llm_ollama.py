@@ -1,6 +1,5 @@
 """
 Language Model Interface using Ollama
-======================================
 Chat interface with message history management and system prompt.
 """
 
@@ -19,7 +18,7 @@ class OllamaChat:
         logger.info(f"Initializing Ollama client (host={config.OLLAMA_HOST}, model={config.OLLAMA_MODEL})")
         self.client = ollama.Client(host=config.OLLAMA_HOST)
         self.conversation_history = []
-        logger.info("✓ Ollama client initialized")
+        logger.info("Ollama client initialized.")
     
     def chat(self, user_message):
         """

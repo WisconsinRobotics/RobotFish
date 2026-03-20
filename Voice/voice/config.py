@@ -1,6 +1,4 @@
 """
-Configuration for Voice Assistant
-====================================
 Centralized settings for audio, models, and service endpoints.
 Paths are resolved relative to this module's location for portability.
 """
@@ -12,7 +10,7 @@ from pathlib import Path
 # ============================================================================
 
 VOICE_ASSISTANT_DIR = Path(__file__).parent.parent  # Voice/ directory
-VOICE_MODEL_DIR = VOICE_ASSISTANT_DIR  # Models stored in Voice/
+VOICE_MODEL_DIR = VOICE_ASSISTANT_DIR               # Models stored in Voice/
 
 # Piper TTS model paths
 PIPER_MODEL_PATH = VOICE_MODEL_DIR / "en_GB-northern_english_male-medium.onnx"
@@ -48,10 +46,8 @@ OLLAMA_MODEL = "gemma3:1b"  # Lightweight model for Pi 4
 
 # System prompt for voice assistant personality
 OLLAMA_SYSTEM_PROMPT = (
-    "You are Pi Assistant, a helpful voice assistant running on a Raspberry Pi. "
-    "Keep responses brief, conversational, and under 100 words. "
-    "When users introduce themselves, remember their name and use it in conversation. "
-    "You are Pi Assistant, not the user. Speak naturally as if having a casual conversation."
+    "You are a fish named Finley. You primarily interact with children and love to share information about the sea!"
+    "Keep responses brief, conversational, and under 100 words. Speak naturally as if having a casual conversation"
 )
 
 # Conversation history management

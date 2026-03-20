@@ -8,7 +8,6 @@ import time
 import threading
 import numpy as np
 from . import config
-from .audio_io import AudioIO, AudioIOError
 from .stt_whisper import WhisperSTT
 from .llm_ollama import OllamaChat
 from .tts_piper import PiperTTS
@@ -16,8 +15,8 @@ from .tts_piper import PiperTTS
 logger = logging.getLogger(__name__)
 
 
-class AssistantApp:
-    """Main voice assistant application"""
+class VoiceApp:
+    """Main voice application"""
     
     def __init__(self, audio_io):
         """
@@ -26,16 +25,16 @@ class AssistantApp:
         Args:
             audio_io: AudioIO instance (already tested in health checks)
         """
-        logger.info("Initializing Voice Assistant App...")
+        logger.info("Initializing voice app...")
         
         self.audio_io = audio_io
         self.stt = WhisperSTT()
         self.llm = OllamaChat()
         self.tts = PiperTTS(audio_io)
         
-        logger.info("✓ Voice Assistant App initialized")
+        logger.info("Voice app initialized.")
     
-    def record_once(self):
+    def record(self):
         """
         Record audio until user presses ENTER
         
@@ -43,11 +42,11 @@ class AssistantApp:
             numpy.ndarray: Audio samples (float32, normalized), or None if no audio
         """
         logger.info("Opening microphone stream for recording...")
-        print("\nRecording... Press ENTER to stop (speak for at least 1 second)")
+        print("RECORDING. Press ENTER to stop.")
         
         try:
             stream = self.audio_io.open_input_stream()
-        except AudioIOError as e:
+        except Exception as e:
             logger.error(f"Failed to open microphone: {e}")
             print(f"Error: {e}")
             return None
@@ -87,26 +86,22 @@ class AssistantApp:
         print(f"\nRecording complete ({elapsed:.1f}s)")
         
         if not frames:
-            logger.warning("No audio frames recorded")
+            logger.warning("No audio frames recorded.")
             return None
         
         # Convert to numpy array (float32, normalized)
         audio_data = np.frombuffer(b''.join(frames), np.int16).astype(np.float32) / 32768.0
         
-        if elapsed < config.MIN_RECORDING_DURATION:
-            logger.warning(f"Recording too short ({elapsed:.1f}s < {config.MIN_RECORDING_DURATION}s)")
-            print(f"Very short recording! Try speaking for longer next time.")
-        
         return audio_data
     
-    def process_turn(self):
+    def interact(self):
         """
         Run one complete interaction: record → transcribe → chat → speak
         
         Returns:
             bool: True to continue, False to exit
         """
-        audio_data = self.record_once()
+        audio_data = self.record()
         if audio_data is None:
             return True
         
@@ -131,34 +126,31 @@ class AssistantApp:
         """
         Main event loop: prompt for commands or run a voice interaction
         """
-        print("\n" + "=" * 60)
-        print("Welcome to OnDevice Pi Voice Assistant!")
-        print("=" * 60)
         print("Commands:")
         print("  Press ENTER to start recording (speak for at least 1 second)")
         print("  Type 'clear' to clear conversation history")
         print("  Type 'quit' or 'exit' to quit")
-        print("=" * 60)
         
         try:
             while True:
                 command = input("\nPress ENTER to record, or type a command: ").strip().lower()
                 
                 if command in ['quit', 'exit', 'q']:
-                    logger.info("User requested shutdown")
+                    logger.info("Shutdown requested.")
                     break
                 
                 elif command == 'clear':
                     self.llm.clear_history()
+                    logger.info("Cleared conversation history.")
                 
-                elif command == '' or command == 'record':
+                elif command == '':
                     # Run one complete turn
-                    should_continue = self.process_turn()
+                    should_continue = self.interact()
                     if not should_continue:
                         break
                 
                 else:
-                    print("Unknown command. Available: record (ENTER), clear, quit")
+                    print("Unknown command.")
         
         except KeyboardInterrupt:
             logger.info("Keyboard interrupt received")
@@ -167,9 +159,9 @@ class AssistantApp:
     
     def shutdown(self):
         """Clean shutdown of all services"""
-        logger.info("Shutting down Voice Assistant...")
+        logger.info("Shutting down voice app...")
         try:
             self.audio_io.shutdown()
         except Exception as e:
             logger.error(f"Error during shutdown: {e}")
-        logger.info("Voice Assistant shut down complete")
+        logger.info("Voice shut down complete.")
