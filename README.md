@@ -20,11 +20,9 @@ This project's dependencies are managed by uv. The pyproject.toml file contains 
 
 ## AI Voice Response
 
-1. Connect the Bluetooth speaker (with microphone) to the Pi.
+1. Turn on the Bluetooth speaker. It should automatically connect to the Pi.
 
 2. Run: `uv run Voice/main.py`
-
-    [PiperTTS source code](https://github.com/OHF-Voice/piper1-gpl)
 
 ### File Organization
 
@@ -45,7 +43,9 @@ Voice/
 
 - Add activation trigger (Speak "Hey Finley" or press a button)
 - Decrease Time To First Token (Start speech to text before LLM generation is completed, switch to a faster (smaller) LLM, test the AI HAT we ordered)
+    - [PiperTTS source code](https://github.com/OHF-Voice/piper1-gpl)
 - Give Finley a personality!!!! 🐟🐟🐟
+    - Edit his prompt in `Voice/voice/config.py`.
     - Allow mechanical responses? (e.g., Finley says "--shake_head--" and robot shakes its head.)
 
 ## Camera & CV Face Tracking
