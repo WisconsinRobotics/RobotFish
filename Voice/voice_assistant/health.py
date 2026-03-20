@@ -71,7 +71,7 @@ def check_piper_models():
         msg = f"Piper config file not found: {config.PIPER_CONFIG_PATH}"
         raise HealthCheckError(msg)
     
-    logger.info(f"✓ Piper models found at {config.PIPER_MODEL_DIR}")
+    logger.info(f"✓ Piper models found at {config.PIPER_MODEL_PATH}")
 
 
 def check_ollama_reachable():

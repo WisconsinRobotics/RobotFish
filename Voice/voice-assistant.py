@@ -34,7 +34,7 @@ def main():
         sys.exit(1)
     except KeyboardInterrupt:
         logger.info("User interrupted; shutting down")
-        print("\Exiting...")
+        print("\nExiting...")
         sys.exit(0)
     except Exception as e:
         logger.error(f"Unexpected error: {e}", exc_info=True)
