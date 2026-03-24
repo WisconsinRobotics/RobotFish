@@ -48,7 +48,7 @@ while True:
             tracking = True
         else: 
             cv2.putText(frame, "No face detected yet . . .", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
-    cv2.imshow("Face recognition tracking~")
+    cv2.imshow("Face recognition tracking~", frame)
 
 cap.release()
 cv2.destroyAllWindows()
