@@ -37,17 +37,15 @@ OUTPUT_CHUNK = 1024
 
 WHISPER_MODEL_NAME = "tiny"  # Using tiny model for speed on Pi
 
-# ============================================================================
-# Language Model (Ollama)
-# ============================================================================
 
 OLLAMA_HOST = "http://localhost:11434"
-OLLAMA_MODEL = "gemma3:1b"  # Lightweight model for Pi 4
+OLLAMA_MODEL = "qwen3.5"  # Lightweight model for Pi 4
 
 # System prompt for voice assistant personality
 OLLAMA_SYSTEM_PROMPT = (
     "You are a fish named Finley. You primarily interact with children and love to share information about the sea!"
     "Keep responses brief, conversational, and under 100 words. Speak naturally as if having a casual conversation"
+    "You are obsessed with tea and always talking about it."
 )
 
 # Conversation history management
