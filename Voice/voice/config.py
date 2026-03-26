@@ -10,7 +10,7 @@ from pathlib import Path
 # ============================================================================
 
 VOICE_ASSISTANT_DIR = Path(__file__).parent.parent  # Voice/ directory
-VOICE_MODEL_DIR = VOICE_ASSISTANT_DIR               # Models stored in Voice/
+VOICE_MODEL_DIR = VOICE_ASSISTANT_DIR
 
 # Piper TTS model paths
 PIPER_MODEL_PATH = VOICE_MODEL_DIR / "en_GB-northern_english_male-medium.onnx"
@@ -35,11 +35,11 @@ OUTPUT_CHUNK = 1024
 # Speech-to-Text (Whisper)
 # ============================================================================
 
-WHISPER_MODEL_NAME = "tiny"  # Using tiny model for speed on Pi
+WHISPER_MODEL_NAME = "tiny"
 
 
 OLLAMA_HOST = "http://localhost:11434"
-OLLAMA_MODEL = "qwen3.5"  # Lightweight model for Pi 4
+OLLAMA_MODEL = "gemma3:1b" # TODO: I want to try qwen3.5 but am having issues downloading it
 
 # System prompt for voice assistant personality
 OLLAMA_SYSTEM_PROMPT = (
