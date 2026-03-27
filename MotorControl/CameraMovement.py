@@ -1,12 +1,15 @@
 from gpiozero import AngularServo
+from gpiozero.pins.lgpio import LGPIOFactory # Reduces jitter
 from .config import *
 
-# use GPIO pin 13 for the servo
-servo_kwargs = {
-    "min_angle": -90,
-    "max_angle": 90,
-}
-servo = AngularServo(SERVO_HEAD_PIN, **servo_kwargs)
+factory = LGPIOFactory()
+
+servo = AngularServo(
+    SERVO_HEAD_PIN,
+    min_angle=-90,
+    max_angle=90,
+    pin_factory=factory
+)
 servo.angle = 0
 
 # Sensitivity factor: controls how quickly the servo reaches full range.
