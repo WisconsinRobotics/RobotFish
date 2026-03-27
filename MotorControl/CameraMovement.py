@@ -10,12 +10,7 @@ servo = AngularServo(
     max_angle=90,
     pin_factory=factory
 )
-servo.angle = 0
-
-# Sensitivity factor: controls how quickly the servo reaches full range.
-# 1.0 = full ±90° range at frame edges, <1.0 = full range closer to edge (more sensitive),
-# >1.0 = full range beyond edge (less sensitive, more gradual)
-SERVO_SENSITIVITY = 1.0
+servo.angle = CENTER_ANGLE
 
 def camera_adjust(x_center, frame_width, target_x=None):
     """

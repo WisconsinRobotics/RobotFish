@@ -54,4 +54,6 @@ Voice/
 
 ## Servo Controls
 
+https://gpiozero.readthedocs.io/en/stable/api_output.html#angularservo
 
+camera_adjust() in CameraMovement.py is called by face tracking logic to update where Finley is looking.
