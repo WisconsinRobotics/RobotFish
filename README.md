@@ -50,10 +50,14 @@ Voice/
 
 ## Camera & CV Face Tracking
 
-
+Run: `uv run Camera/facerocognitionCam.py`
 
 ## Servo Controls
 
-https://gpiozero.readthedocs.io/en/stable/api_output.html#angularservo
+Run head servo: See Camera section
 
-camera_adjust() in CameraMovement.py is called by face tracking logic to update where Finley is looking.
+### To Do
+
+- Eliminate jitter
+    - [LGPIO is used to minimize jitter](https://gpiozero.readthedocs.io/en/stable/api_output.html#angularservo)
+- Add other servos (fins, mouth, etc.)
