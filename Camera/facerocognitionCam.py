@@ -2,14 +2,17 @@ import cv2
 import os
 import sys
 import time
-from pathlib import Path
-
-# Allow direct execution (e.g., `uv run Camera/facerocognitionCam.py`) to import sibling folders.
-REPO_ROOT = Path(__file__).resolve().parents[1]
-if str(REPO_ROOT) not in sys.path:
-    sys.path.insert(0, str(REPO_ROOT))
 
 from MotorControl.CameraMovement import camera_adjust
+
+def _display_available() -> bool:
+    """
+    Check if a display is available for OpenCV windows.
+    Returns False in headless environments.
+    """
+    if sys.platform.startswith("linux"):
+        return bool(os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY"))
+    return True
 
 cap = cv2.VideoCapture(0)
 face_cascade = cv2.CascadeClassifier(
@@ -19,29 +22,21 @@ tracker = None
 tracking = False
 last_detect_time = 0
 detect_interval = 0.5
-
-
-def _display_available() -> bool:
-    if sys.platform.startswith("linux"):
-        return bool(os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY"))
-    return True
-
-
-show_preview = _display_available()
+display_available = _display_available()
 
 while True:
     ret, frame = cap.read()
     if not ret:
         break
 
-    if show_preview:
+    if display_available:
         try:
             key = cv2.waitKey(1) & 0xFF
             if key == ord('q'):
                 break
         except cv2.error:
-            # Fall back to headless mode if GUI support is unavailable at runtime.
-            show_preview = False
+            # Headless mode (Display failed)
+            display_available = False
 
     face_center_x = -1
 
@@ -77,7 +72,11 @@ while True:
         else: 
             cv2.putText(frame, "No face detected yet . . .", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
 
-    servo_value = camera_adjust(face_center_x, frame.shape[1])
+    servo_value = camera_adjust(
+        face_center_x,
+        frame.shape[1],
+        target_x=frame.shape[1] / 2.0,
+    )
     cv2.putText(
         frame,
         f"servo={servo_value:.2f}",
@@ -88,13 +87,14 @@ while True:
         2,
     )
 
-    if show_preview:
+    if display_available:
         try:
             cv2.imshow("Face recognition tracking~", frame)
         except cv2.error:
             # Disable preview if imshow fails, but keep control loop running.
-            show_preview = False
+            display_available = False
 
+# Destroy resources after loop exits
 cap.release()
-if show_preview:
+if display_available:
     cv2.destroyAllWindows()
