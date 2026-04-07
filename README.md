@@ -54,4 +54,5 @@ Voice/
 
 ## Servo Controls
 
-
+Run head servo: See Camera section
+Run mouth servo: UNIMPLEMENTED
