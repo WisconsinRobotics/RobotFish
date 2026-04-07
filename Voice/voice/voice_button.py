@@ -3,12 +3,18 @@ from gpiozero import Button
 
 button = Button(BUTTON_PIN)
 
-def button_changed(button):
-    if button.is_pressed:
-        print("Button pressed.")
+def button_pressed(button):
+  """
+  Returns true if the button is pressed.
+  """
+  if button.is_pressed:
+      return True
+  else:
+      return False
 
-try:
-    while True:
-        button_changed(button)
-finally:
-    button.close()
+# For testing
+# try:
+#     while True:
+#         print(button_pressed(button))
+# finally:
+#     button.close()
