@@ -78,3 +78,6 @@ MIN_RECORDING_DURATION = 0.5
 
 LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 LOG_LEVEL = "INFO"
+
+# Button pin
+BUTTON_PIN = 4

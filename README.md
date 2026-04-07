@@ -55,9 +55,4 @@ Run: `uv run Camera/facerocognitionCam.py`
 ## Servo Controls
 
 Run head servo: See Camera section
-
-### To Do
-
-- Eliminate jitter
-    - [LGPIO is used to minimize jitter](https://gpiozero.readthedocs.io/en/stable/api_output.html#angularservo)
-- Add other servos (fins, mouth, etc.)
+Run mouth servo: UNIMPLEMENTED
