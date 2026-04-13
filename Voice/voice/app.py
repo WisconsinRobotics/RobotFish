@@ -1,6 +1,8 @@
 """
 Main Voice Application
 Main loop: record input --> transcribe --> generate response --> speak
+
+Run: `uv run Voice/main.py`
 """
 
 import logging
@@ -11,6 +13,7 @@ from . import config
 from .stt_whisper import WhisperSTT
 from .llm_ollama import OllamaChat
 from .tts_piper import PiperTTS
+from . import voice_button
 
 logger = logging.getLogger(__name__)
 
@@ -57,8 +60,9 @@ class VoiceApp:
         
         def stop_recording():
             nonlocal recording
-            input()  # Wait for Enter
-            recording = False
+            temprec = recording
+            while(recording == temprec):
+                voice_button.on_button_press(recording)
         
         # Start thread to listen for Enter
         stop_thread = threading.Thread(target=stop_recording, daemon=True)
@@ -134,6 +138,10 @@ class VoiceApp:
         try:
             while True:
                 command = input("\nPress ENTER to record, or type a command: ").strip().lower()
+                while(not voice_button.button_pressed()):
+                    #wait here
+                    print("we still be waiting")
+                
                 
                 if command in ['quit', 'exit', 'q']:
                     logger.info("Shutdown requested.")

@@ -30,6 +30,9 @@ last_detect_time = 0
 detect_interval = 0.5
 display_available = _display_available()
 
+# Positive values move the target center right, negative move it left.
+CENTER_X_OFFSET_PX = 20 # TODO: TEST START HERE ALISON
+
 while True:
     ret, frame = cap.read()
     if not ret:
@@ -100,14 +103,16 @@ while True:
         else: 
             cv2.putText(frame, "No face detected yet . . .", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
 
+    target_x = (frame.shape[1] / 2.0) + CENTER_X_OFFSET_PX
+
     servo_value = camera_adjust(
         face_center_x,
         frame.shape[1],
-        target_x=frame.shape[1] / 2.0,
+        target_x=target_x,
     )
     cv2.putText(
         frame,
-        f"servo={servo_value:.2f}",
+        f"servo={servo_value:.2f} center_offset={CENTER_X_OFFSET_PX}px",
         (10, 65),
         cv2.FONT_HERSHEY_SIMPLEX,
         0.7,
