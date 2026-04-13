@@ -21,6 +21,9 @@ cap = cv2.VideoCapture(0)
 face_cascade = cv2.CascadeClassifier(
     cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
 )
+profile_cascade = cv2.CascadeClassifier(
+    cv2.data.haarcascades + "haarcascade_profileface.xml"
+)
 tracker = None
 tracking = False
 last_detect_time = 0
@@ -58,14 +61,36 @@ while True:
         last_detect_time = time.time()
         
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        faces = face_cascade.detectMultiScale(
+        frontal_faces = face_cascade.detectMultiScale(
             gray, 
             scaleFactor = 1.1, 
             minNeighbors = 5, 
             minSize=(60, 60)
         )
-        if len(faces) > 0:
-            x, y, w, h = max(faces, key=lambda b: b[2] * b[3])
+
+        left_profiles = profile_cascade.detectMultiScale(
+            gray,
+            scaleFactor=1.1,
+            minNeighbors=5,
+            minSize=(60, 60),
+        )
+
+        # Detect right-facing profiles by mirroring the image.
+        gray_flipped = cv2.flip(gray, 1)
+        right_profiles_flipped = profile_cascade.detectMultiScale(
+            gray_flipped,
+            scaleFactor=1.1,
+            minNeighbors=5,
+            minSize=(60, 60),
+        )
+        right_profiles = [
+            (gray.shape[1] - x - w, y, w, h)
+            for (x, y, w, h) in right_profiles_flipped
+        ]
+
+        all_faces = list(frontal_faces) + list(left_profiles) + right_profiles
+        if len(all_faces) > 0:
+            x, y, w, h = max(all_faces, key=lambda b: b[2] * b[3])
             face_center_x = x + (w // 2)
             cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
             cv2.putText(frame, "face_detecting", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
