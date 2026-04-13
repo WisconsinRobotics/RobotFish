@@ -1,13 +1,14 @@
 """
-This file will be the main entry point for the program but is currently unused;
-use the main file of the feature you're developing (e.g., Camera, MotorControl,
-Voice) instead for now.
+To start the entire system, run this file: `uv run main.py`.
 
-Open question: How will running systems concurrently work? How to set priority?
+To stop the system, run `ps` and then `kill <pid>` for the uv process.
 """
 
-# TODO: Initialize Motor Control
+import subprocess
 
-# TODO: Initialize Camera & Computer Vision
+# Initialize Voice
+voice_process = subprocess.Popen(["uv", "run", "Voice/main.py"])
+# TODO: Initially tell Finley "Introduce yourself." to speed up the first response.
 
-# TODO: Initialize Voice
+# Initialize facial tracking
+facial_tracking_process = subprocess.Popen(["uv", "run", "Camera/facerocognitionCam.py"])

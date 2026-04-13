@@ -18,6 +18,12 @@ This project's dependencies are managed by uv. The pyproject.toml file contains 
 - `uv sync`: Updates your environment to match pyproject.toml.
 - [Install uv](https://docs.astral.sh/uv/getting-started/installation/) for development on personal computer
 
+## Quick Start
+
+1. Power on Bluetooth speaker.
+
+2. `uv run main.py`
+
 ## AI Voice Response
 
 1. Turn on the Bluetooth speaker. It should automatically connect to the Pi.
@@ -40,8 +46,6 @@ Voice/
 └── en_GB-northern_english_male-medium.onnx.json    *(TTS voice model)*  
 
 ### To Do
-
-- Add activation trigger (Speak "Hey Finley" or press a button)
 - Decrease Time To First Token (Start speech to text before LLM generation is completed, switch to a faster (smaller) LLM, test the AI HAT we ordered)
     - [PiperTTS source code](https://github.com/OHF-Voice/piper1-gpl)
 - Give Finley a personality!!!! 🐟🐟🐟
@@ -55,4 +59,5 @@ Run: `uv run Camera/facerocognitionCam.py`
 ## Servo Controls
 
 Run head servo: See Camera section
+
 Run mouth servo: UNIMPLEMENTED
