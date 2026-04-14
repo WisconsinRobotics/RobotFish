@@ -2,6 +2,8 @@ from gpiozero import AngularServo
 from gpiozero.pins.lgpio import LGPIOFactory # Reduces jitter
 import asyncio
 
+# BAD BAD FIX THIS BAD
+
 from config import CENTER_ANGLE, SERVO_MOUTH_PIN
 
 factory = LGPIOFactory()
