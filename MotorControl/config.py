@@ -1,7 +1,7 @@
 # ============================================================================
 # CameraMovement configuration
 # ============================================================================
-CENTER_ANGLE = 0  # Angle at which Finley is looking straight ahead
+CENTER_ANGLE = 25  # Calibrated servo angle for true forward-center position
 SERVO_SENSITIVITY = 1.0  # Adjust this to make servo more or less sensitive to face position. 1.0 = full ±90° range at frame edges
 
 # ============================================================================
