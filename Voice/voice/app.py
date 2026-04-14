@@ -60,9 +60,9 @@ class VoiceApp:
         
         def stop_recording():
             nonlocal recording
-            temprec = recording
-            while(recording == temprec):
-                voice_button.on_button_press(recording)
+            voice_button.get_input_or_button();
+            
+            recording = False
         
         # Start thread to listen for Enter
         stop_thread = threading.Thread(target=stop_recording, daemon=True)
@@ -120,9 +120,9 @@ class VoiceApp:
         if not response:
             logger.warning("No response from LLM")
             return True
-        
         # Text to speech
         self.tts.speak(response)
+        
         
         return True
     
@@ -136,12 +136,10 @@ class VoiceApp:
         print("  Type 'quit' or 'exit' to quit")
         
         try:
+            command = 0
             while True:
-                command = input("\nPress ENTER to record, or type a command: ").strip().lower()
-                while(not voice_button.button_pressed()):
-                    #wait here
-                    print("we still be waiting")
-                
+                print("\nPress the button to record, or type a command: ")
+                command = voice_button.get_input_or_button()
                 
                 if command in ['quit', 'exit', 'q']:
                     logger.info("Shutdown requested.")

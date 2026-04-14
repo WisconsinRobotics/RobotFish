@@ -2,6 +2,7 @@
 To start the entire system, run this file: `uv run main.py`.
 
 To stop the system, run `ps` and then `kill <pid>` for the uv process.
+`pkill uv` might work, but it's untested.
 """
 
 import subprocess

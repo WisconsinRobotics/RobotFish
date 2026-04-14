@@ -8,6 +8,7 @@ SERVO_SENSITIVITY = 1.0  # Adjust this to make servo more or less sensitive to f
 # GPIO pin assignments
 # ============================================================================
 SERVO_HEAD_PIN = 13 # Finley's head/neck
+SERVO_MOUTH_PIN = 6 # Finley's jaw
 
 # Currently unused
 SERVO_LEFTFIN_PIN = None
