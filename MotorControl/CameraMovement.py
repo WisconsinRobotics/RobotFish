@@ -1,6 +1,7 @@
 from gpiozero import AngularServo
 from gpiozero.pins.lgpio import LGPIOFactory # Reduces jitter
 from .config import *
+from time import sleep
 
 factory = LGPIOFactory()
 
@@ -26,6 +27,7 @@ def camera_adjust(x_center, frame_width, target_x=None):
     """
     if x_center == -1 or frame_width <= 0:
         servo.angle = 0  # No face detected or invalid frame width. Return to neutral position.
+        sleep(0.5)
         return 0.0
 
     if target_x is None:
@@ -38,6 +40,8 @@ def camera_adjust(x_center, frame_width, target_x=None):
     # Map error to angle range [-90, 90]
     angle_offset = (error / max_error) * 90.0
     new_angle = angle_offset
+    sleep(0.5)
     new_angle = max(-90, min(90, new_angle))
     servo.angle = new_angle
+    sleep(0.5)
     return new_angle
