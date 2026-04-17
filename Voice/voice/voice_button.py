@@ -2,7 +2,7 @@ from .config import BUTTON_PIN
 from gpiozero import Button
 import threading
 
-button = Button(BUTTON_PIN)
+button = Button(BUTTON_PIN,bounce_time = 0.05)
 input_ready = threading.Event()
 user_input = ""
 
@@ -30,6 +30,8 @@ def get_input_or_button():
     thread.start()
     
     input_ready.wait()  # Block until either input or button
+    #debounce the button
+    
     input_ready.clear()
     return user_input
 
