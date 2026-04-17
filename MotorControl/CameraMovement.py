@@ -26,7 +26,7 @@ def camera_adjust(x_center, frame_width, target_x=None):
         The new servo value in range [-90, 90].
     """
     if x_center == -1 or frame_width <= 0:
-        servo.angle = 0  # No face detected or invalid frame width. Return to neutral position.
+        servo.angle = 20  # No face detected or invalid frame width. Return to neutral position.
         sleep(0.5)
         return 0.0
 

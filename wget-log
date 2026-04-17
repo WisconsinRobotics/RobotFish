@@ -1,0 +1,6 @@
+--2026-04-16 20:21:39--  https://hailo-files-public.s3.eu-west-1.amazonaws.com/raspberry-pi5/hailo-raspberry-pi5-setup.sh
+Resolving hailo-files-public.s3.eu-west-1.amazonaws.com (hailo-files-public.s3.eu-west-1.amazonaws.com)... 3.5.74.46, 3.5.67.227, 3.5.72.91, ...
+Connecting to hailo-files-public.s3.eu-west-1.amazonaws.com (hailo-files-public.s3.eu-west-1.amazonaws.com)|3.5.74.46|:443... connected.
+HTTP request sent, awaiting response... 404 Not Found
+2026-04-16 20:21:39 ERROR 404: Not Found.
+
